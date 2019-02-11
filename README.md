@@ -21,7 +21,7 @@ not yet
 - Aquerir le repository en local avec clef SSH
 
 ```ruby
-$ git clone git@github.com:Yacinth/the_gossip_project_pg_crud_heroku.git
+$ git clone git@github.com:Yacinth/EventProject.git
 ```
 
 ## Bundle Install
