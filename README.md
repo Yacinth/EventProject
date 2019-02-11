@@ -76,14 +76,4 @@ $ User.create(first_name:"First_name", last_name: "Last_name", description: "Voi
 
 Go sur ta fausse boite mail : http://www.yopmail.com/?login=nimportekoi
 
-## Run server
-
-```ruby
-$ rails server
-```
-
-## Got to url and enjoy
-
-http://localhost:3000/
-
 ### A tout de suite les correcteurs <3
