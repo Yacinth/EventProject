@@ -8,3 +8,4 @@ FactoryBot.define do
     location { "MyString" }
   end
 end
+
