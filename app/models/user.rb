@@ -8,10 +8,11 @@ class User < ApplicationRecord
   validates :description, 
     presence: true
   
-  has_secure_password
-
   has_many :attendances
   has_many :events, through: :attendances
+  
+  has_many :create_events, foreign_key: 'admin_event_id', class_name: "Event"
+  has_many :participate_events, foreign_key: 'participant_id', class_name: "Event"
 
   #def welcome_send
   #  UserMailer.welcome_email(self).deliver_now

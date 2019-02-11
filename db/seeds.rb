@@ -9,25 +9,16 @@ require 'faker'
 
 puts "Destroy database.."
 sleep(1)
-Gossip.destroy_all
-PrivateMessage.destroy_all
-City.destroy_all
-Tag.destroy_all
 User.destroy_all
+Attendance.destroy_all
+Event.destroy_all
+
 sleep(1)
 puts "Reset PK Sequence"
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
-ActiveRecord::Base.connection.reset_pk_sequence!('gossips')
-ActiveRecord::Base.connection.reset_pk_sequence!('private_messages')
-ActiveRecord::Base.connection.reset_pk_sequence!('cities')
-ActiveRecord::Base.connection.reset_pk_sequence!('tags')
-ActiveRecord::Base.connection.reset_pk_sequence!('join_table_tag_gossips')
+ActiveRecord::Base.connection.reset_pk_sequence!('events')
+ActiveRecord::Base.connection.reset_pk_sequence!('attendances')
 
-# ActiveRecord::Base.connection.execute("DELETE from sqlite_sequence where name = 'gossips'")
-# ActiveRecord::Base.connection.execute("DELETE from sqlite_sequence where name = 'private_messages'")
-# ActiveRecord::Base.connection.execute("DELETE from sqlite_sequence where name = 'cities'")
-# ActiveRecord::Base.connection.execute("DELETE from sqlite_sequence where name = 'tags'")
-#ActiveRecord::Base.connection.execute("DELETE from sqlite_sequence where name = 'users'")
 puts "Sucess, all DB deleted"
 sleep(1)
 puts "Generate new DB..."
@@ -38,9 +29,9 @@ sleep(1.5)
 
 15.times do 
   mdp = Faker::Internet.password(8)
-  user = User.create!(password: mdp, password_confirmation: mdp, city_id: City.all.sample.id, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::TvShows::SiliconValley.quote, email: Faker::Internet.email, age: Faker::Number.between(1, 100))
+  user = User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::TvShows::SiliconValley.quote, email: Faker::Internet.email, encrypted_password: mdp)
   puts ""
-  puts "user #{user.first_name} #{user.last_name} is #{user.age} yo"
+  puts "user #{user.first_name} #{user.last_name} email : #{user.email}"
   sleep(0.05)
   puts "#{user.first_name}'s description :"
   puts "#{user.description}"
@@ -48,16 +39,14 @@ sleep(1.5)
   puts "~~~~~~~~~~~~~~~~~~~next~~~~~~~~~~~~~~~~>"
 end
 
-10.times do
-	city = City.create!(name: Faker::Address.city, zip_code: Faker::Address.zip_code)
-  puts "#{city.name} is a little Gossip World"
-end
-
 sleep(1)
-puts "_______________________________"
-puts ""
 
-
+10.times do
+  nb = Faker::Number.between(5, 1000)
+  multiple_of_5 = nb%5 == 0
+	event = Event.create!(start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Tvshows::RickAndMorty.quote,  price: Faker::Number.between(1, 1000), location: "Fresne")
+  puts "#{event.title} is an event who begin at #{event.start_date} and cost #{event.price}"
+end
 
 sleep(1)
 puts "_______________________________"
@@ -65,7 +54,7 @@ puts ""
 
 20.times do 
   user = User.all.sample
-  gossip = Gossip.create!(user_id: user.id, city_id: user.city_id, title: Faker::Hipster.word, content: Faker::TvShows::MichaelScott.quote)
+  Attendance = Attendances.create!(participant_id: user.id, event_id: user.id, stripe_customer_id: Faker::Number.between(0, 2000))
   
   puts "User #{gossip.user_id} post :"
   puts "title : #{gossip.title}"
@@ -74,7 +63,6 @@ puts ""
   puts "User #{gossip.user_id} said:"
   puts "#{gossip.content}"
 end
-
 
 puts "_______________________________"
 puts ""
