@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   before_save {  |user| user.email = email.downcase }
-  #after_create :welcome_send
+  after_create :welcome_send
+  
   validates :first_name, 
     presence: true 
   validates :last_name, 
@@ -10,11 +11,11 @@ class User < ApplicationRecord
   
   has_many :attendances
   has_many :events, through: :attendances
-  
+
   has_many :create_events, foreign_key: 'admin_event_id', class_name: "Event"
   has_many :participate_events, foreign_key: 'participant_id', class_name: "Event"
 
-  #def welcome_send
-  #  UserMailer.welcome_email(self).deliver_now
-  #end
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
+  end
 end

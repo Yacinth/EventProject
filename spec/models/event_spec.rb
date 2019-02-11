@@ -20,6 +20,10 @@ context "validation" do
   describe "#start_date" do
     it { expect(@event).to validate_presence_of(:start_date) }
   end
+  
+  it "date_start cannot be in the past" do
+   expect(@event.start_date).to be >Time.now
+  end
 
   describe "#duration" do
     it { expect(@event).to validate_presence_of(:duration) }
@@ -51,10 +55,22 @@ context "associations" do
     it { expect(@event).to have_many(:participants) }
   end
 
-  
+  describe "events" do
+    it { expect(@event).to have_many(:attendances) }
+  end
 
 end
 
+context "public instance methods" do
 
+ describe "#full_name" do
+
+   it "should return a string" do
+     expect(@event.title).to be_a(String)
+   end
+
+ end
+
+end
 
 end

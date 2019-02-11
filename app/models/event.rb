@@ -1,11 +1,11 @@
 class Event < ApplicationRecord
+
   belongs_to :admin_event, class_name: "User"
   
   has_many :attendances
   has_many :participants, class_name: "User", through: :attendances
 
-  validates :start_date, 
-    presence: true 
+  validates :start_date, presence: true 
 
   validate :start_date_cannot_be_in_the_past
 
@@ -21,13 +21,12 @@ class Event < ApplicationRecord
   validates :description, 
     presence: true,
     length: { in: 20..1000 } 
-    
+
   validates :price, 
     presence: true, 
     numericality: { greater_than: 1, less_than: 1001 }
 
-  validates :location, 
-    presence: true
+  validates :location, presence: true
 
   def duration_must_be_a_multiply_of_five
     if duration.present? && duration%5 != 0
@@ -40,4 +39,5 @@ class Event < ApplicationRecord
       errors.add(:start_date, "can't be in the past")
     end
   end 
+
 end

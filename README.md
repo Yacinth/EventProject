@@ -1,24 +1,89 @@
-# README
+![](https://media0.giphy.com/media/2zeji2UedvZzvIZ45N/giphy.gif?cid=3640f6095c4a8a4d6b6958366767066f)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Event PROJECT
 
-Things you may want to cover:
+~~ Cynthia @Yacinth ~~ William @Willyspa
 
-* Ruby version
+## Ruby version
 
-* System dependencies
+```ruby
+ruby 2.5.1
+```
 
-* Configuration
+# Got to Heroku website
 
-* Database creation
+not yet
 
-* Database initialization
+# Or do like always with this steps :
 
-* How to run the test suite
+## Git Clone
 
-* Services (job queues, cache servers, search engines, etc.)
+- Aquerir le repository en local avec clef SSH
 
-* Deployment instructions
+```ruby
+$ git clone git@github.com:Yacinth/the_gossip_project_pg_crud_heroku.git
+```
 
-* ...
+## Bundle Install
+
+- Executer un bundle install pour pouvoir utiliser les gems du Gemfile
+
+```ruby
+$ bundle install
+```
+
+## create Database
+
+```ruby
+$ rails db:create
+```
+
+## Migration
+
+- Verifier le statut des migrations dans le terminal
+
+```ruby
+$ rails db:migrate:statuts
+```
+
+- Si des migrations sont down, effectuer :
+
+```ruby
+$ rails db:migrate
+```
+
+## Database
+
+- Generer la database à partir de ../migrate/seed.rb :
+
+```ruby
+$ rails db:seed
+```
+
+## Console Rails
+
+- Pour lancer la console rails et tester la création de row:
+
+```ruby
+$ rails console
+```
+
+- Pour créer un user et lancer l'email welcome :
+
+```ruby
+$ User.create(first_name:"First_name", last_name: "Last_name", description: "Voici ma description", encrypted_password: "password",  email:"alt.yo-2ofbtykj@yopmail.com")
+```
+
+Go sur ta fausse boite mail : http://www.yopmail.com/?login=nimportekoi
+
+## Run server
+
+```ruby
+$ rails server
+```
+
+## Got to url and enjoy
+
+http://localhost:3000/
+
+### A tout de suite les correcteurs <3
