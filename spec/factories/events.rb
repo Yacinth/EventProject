@@ -1,11 +1,13 @@
 FactoryBot.define do
   factory :event do
-    start_date { "2019-02-11 15:15:43" }
-    duration { 1 }
-    title { "MyString" }
-    description { "MyText" }
-    price { 1 }
-    location { "MyString" }
+    association :admin_event, factory: :user
+    association :participant_id, factory: :user
+    start_date { Faker::Date.forward(5) }
+    duration { 5 }
+    title { Faker::Book.title }
+    description { Faker::Lorem.paragraph(2) }
+    price { Faker::Number.between(1, 1000) }
+    location { "Fresnes" }
   end
 end
 

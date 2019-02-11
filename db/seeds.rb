@@ -42,29 +42,28 @@ end
 sleep(1)
 
 10.times do
+  puts ""
+  user = User.all.sample
   nb = Faker::Number.between(5, 1000)
   multiple_of_5 = nb%5 == 0
-	event = Event.create!(start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Tvshows::RickAndMorty.quote,  price: Faker::Number.between(1, 1000), location: "Fresne")
+	event = Event.create!(participant_id: user.id, admin_event_id: user.id, start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Lorem.paragraph(2),  price: Faker::Number.between(1, 1000), location: "Fresne")
   puts "#{event.title} is an event who begin at #{event.start_date} and cost #{event.price}"
+  puts "_______________________________"
+  puts ""
 end
 
 sleep(1)
-puts "_______________________________"
-puts ""
 
 20.times do 
   user = User.all.sample
-  Attendance = Attendances.create!(participant_id: user.id, event_id: user.id, stripe_customer_id: Faker::Number.between(0, 2000))
-  
-  puts "User #{gossip.user_id} post :"
-  puts "title : #{gossip.title}"
-  puts "~~~~~~~~~~~~~"
-  sleep(0.05)
-  puts "User #{gossip.user_id} said:"
-  puts "#{gossip.content}"
+  event = Event.all.sample
+  attendance = Attendance.create!(participant_id: user.id, event_id: event.id, stripe_customer_id: Faker::Number.between(0, 2000))
+  puts "attendance id :#{attendance.id} is create"
+  puts "_______________________________"
+  puts ""
+
 end
 
-puts "_______________________________"
-puts ""
+
 sleep(2)
 puts "ALL GOOD, DB fresh and ready to be explored like as life"
