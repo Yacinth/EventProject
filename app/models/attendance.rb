@@ -7,7 +7,7 @@ class Attendance < ApplicationRecord
   validates :stripe_customer_id, uniqueness: true
 
   def alert_to_admin_send
-  UserMailer.alert_to_admin_send(participant_id).deliver_now
+  UserMailer.alert_to_admin_send(event_id).deliver_now
   end
 
 end
