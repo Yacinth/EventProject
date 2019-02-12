@@ -68,12 +68,27 @@ $ rails db:seed
 $ rails console
 ```
 
-- Pour créer un user et lancer l'email welcome :
+- Pour créer un user u et lancer l'email welcome :
 
 ```ruby
-$ User.create(first_name:"First_name", last_name: "Last_name", description: "Voici ma description", encrypted_password: "password",  email:"alt.yo-2ofbtykj@yopmail.com")
+$ u = User.create(first_name:"First_name", last_name: "Last_name", description: "Voici ma description", encrypted_password: "password",  email:"alt.yo-2ofbtykj@yopmail.com")
+```
+
+- Pour créer une Attendance et lancer une alert à l'admin de l'event :
+
+Créer d'abord un event avec u comme admin_event
+
+```ruby
+$ e = Event.create!(participant_id: 3, admin_event_id: u.id, start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Lorem.paragraph(2),  price: Faker::Number.between(1, 1000), location: "Fresnes")
+```
+
+Créer ensuite l'Attendance et envoies l'alert à u, l'admin de l'event :
+
+```ruby
+$ a = Attendance.create(participant_id: 5, event_id: Event.last.id,  stripe_customer_id: 300)
 ```
 
 Go sur ta fausse boite mail : http://www.yopmail.com/?login=nimportekoi
+Ou dans : https://app.sendgrid.com/email_activity
 
 ### A tout de suite les correcteurs <3

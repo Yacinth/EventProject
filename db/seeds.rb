@@ -39,6 +39,10 @@ sleep(1.5)
   puts "~~~~~~~~~~~~~~~~~~~next~~~~~~~~~~~~~~~~>"
 end
 
+u = User.create(first_name:"Fifou", last_name: "Last_name", description: "Voici ma description", encrypted_password: "password",  email:"alt.yo-2ofbtykj@yopmail.com")
+e = Event.create!(participant_id: 3, admin_event_id: u.id, start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Lorem.paragraph(2),  price: Faker::Number.between(1, 1000), location: "Fresnes")
+
+
 sleep(1)
 
 10.times do
@@ -46,7 +50,7 @@ sleep(1)
   user = User.all.sample
   nb = Faker::Number.between(5, 1000)
   multiple_of_5 = nb%5 == 0
-	event = Event.create!(participant_id: user.id, admin_event_id: user.id, start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Lorem.paragraph(2),  price: Faker::Number.between(1, 1000), location: "Fresne")
+	event = Event.create!(participant_id: user.id, admin_event_id: user.id, start_date: Faker::Date.forward(5), duration: "5", title: Faker::Book.title, description: Faker::Lorem.paragraph(2),  price: Faker::Number.between(1, 1000), location: "Fresnes")
   puts "#{event.title} is an event who begin at #{event.start_date} and cost #{event.price}"
   puts "_______________________________"
   puts ""
